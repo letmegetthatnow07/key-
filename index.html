@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Combined Graduate Level Examination 2025 Tier II</title>
+  <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #ffffff;
+      border-bottom: 5px solid #e8c030;
+      padding: 8px 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header img.logo {
+      height: 82px;
+      width: auto;
+      display: block;
+    }
+
+    .header-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .header-text .ssc-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1a3a8c;
+      letter-spacing: 0.5px;
+      font-family: Arial, sans-serif;
+      margin-bottom: 4px;
+    }
+
+    .header-text .ssc-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: #1a3a8c;
+      font-family: Arial, sans-serif;
+    }
+
+    /* ── BLUE MAIN AREA ── */
+    .main-area {
+      background: #5b9bd5;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px 48px;
+    }
+
+    /* ── WHITE LOGIN BOX ── */
+    .login-box {
+      background: #ffffff;
+      width: 100%;
+      max-width: 516px;
+      border-radius: 3px;
+      box-shadow: 3px 3px 16px rgba(0,0,0,0.28);
+      overflow: hidden;
+    }
+
+    .login-box-header {
+      background: #ddeeff;
+      padding: 16px 20px 14px;
+      text-align: center;
+      border-bottom: 1px solid #bbd3ee;
+    }
+
+    .login-box-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: 1.5px;
+      font-family: Arial, sans-serif;
+    }
+
+    .login-box-body {
+      padding: 18px 38px 26px;
+    }
+
+    /* ── TOP ERROR ── */
+    .error-msg {
+      color: #cc0000;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    /* ── FIELD GROUPS ── */
+    .field-group { margin-bottom: 14px; }
+
+    .field-group label {
+      display: block;
+      font-size: 12.5px;
+      color: #333;
+      margin-bottom: 4px;
+      font-family: Arial, sans-serif;
+    }
+
+    .field-group label .req { color: #cc0000; margin-left: 1px; }
+
+    .field-group input {
+      width: 100%;
+      padding: 9px 11px;
+      font-size: 13px;
+      border: 1px solid #cccccc;
+      border-radius: 3px;
+      color: #555;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.15s;
+    }
+    .field-group input:focus { border-color: #5b9bd5; }
+    .field-group input.err { border-color: #cc0000; background: #fff5f5; }
+
+    .field-err-text {
+      color: #cc0000;
+      font-size: 12px;
+      margin-top: 3px;
+      display: none;
+    }
+
+    /* ── CAPTCHA ── */
+    .captcha-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .captcha-row {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    #captchaCanvas {
+      display: block;
+      width: 195px;
+      height: 52px;
+      border-radius: 2px;
+    }
+
+    .captcha-refresh {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: #444;
+      padding: 0 5px;
+      line-height: 1;
+    }
+    .captcha-refresh:hover { color: #1a3a8c; }
+
+    .captcha-input-wrap { margin-top: 5px; }
+    .captcha-input-wrap input {
+      width: 195px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      border: 1px solid #aaa;
+      border-radius: 3px;
+      outline: none;
+      color: #333;
+    }
+    .captcha-input-wrap input:focus { border-color: #5b9bd5; }
+
+    /* ── HELP ── */
+    .help-icon {
+      text-align: center;
+      margin: 5px 0 10px;
+      color: #555;
+      font-size: 19px;
+      cursor: default;
+    }
+
+    /* ── LOGIN BUTTON ── */
+    .login-btn-wrap { display: flex; justify-content: center; margin-top: 2px; }
+
+    .login-btn {
+      background: #5b9bd5;
+      color: #fff;
+      border: none;
+      padding: 10px 46px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 3px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      font-family: Arial, sans-serif;
+      transition: background 0.15s;
+    }
+    .login-btn:hover { background: #4a87c0; }
+
+    /* ── FOOTER ── */
+    .login-box-footer {
+      background: #ddeeff;
+      text-align: center;
+      padding: 10px;
+      border-top: 1px solid #bbd3ee;
+      font-size: 13px;
+      color: #333;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <img class="logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIREBISEhAWFhUWGBcbFhcWGBcXGhgVFxIYFxYYFyAYHSggGBolGxYWITEiJSkrLi4uGh8zODMsNygtLi0BCgoKDg0OGxAQGzUlICYvLTExLTIwLy01LS0tLS0tLTAuNy8tLS0vMi0vLS0tKy0vLS0tLS0tLS0tLS0tLS0vLf/AABEIAKgBLAMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABBEAACAQIEAggCCAUCBQUAAAABAgMAEQQSITEFQQYTIjJRYXGRgbEHFCNCUqHB0TNicoLwkrIVFqLh8RckNENT/8QAGgEBAAIDAQAAAAAAAAAAAAAAAAMEAQIFBv/EADIRAAIBAgUBBAkEAwAAAAAAAAABAgMRBBIhMUFRBRMiMmFxgZGhscHR8BQVI/EzQuH/2gAMAwEAAhEDEQA/AO40pSgFKUoBSlKAUpSgFKUoBSlKAUpXm9AeqVqSY1b2W7t4Lr7nYfE1r4jFOou7xxDzOZrfkB+dRuokZSZJXpVdHFYXbKsk0rWJsvZvYXNrZb1qYfi8MkgjXDEsbgZ35gE2N7+FQPGU1ySKjItt6XqowcWjaURfUwGJtq1rHz0r3DxiEuIzDKjZstlc6Ne3iOdYWMpvn5/Yz3Mi10qBg4rGTZcSVa9ssqjfw2B/OpBMU4F2QMPxRnN+R19r1NGtGWxG4Nbm9SsUGJV+617b+I9RuKy1Knc1FKUrIFKUoBSlKAUpSgFKUoD7SlKAUpSgFKUoBSlKAUpSgFKUoBSlKAV8vS9auJxBByJYufZR+JvLy51htIbnvEYoJbmTso1J9P32qNxmJF7St2jqsMZ7Tc+0dz6Cw9ai+IcdSJikZLsf4kml/ROWntWNuj7tlngnzk2YFtDf1rn1MS5Nxpq9t/zksRpJay0PK8bd5RCR1EZ7Nl0ZSdib+flzr5/w2XDYhJH+0jJszb9ltDmB239NK89KulWBhjC4kZp7fwo7F1b+oaKPU1z/AIz9JuNmGWLLAm2gDOR5swt7Co3R5nK/K+zWxdoYWrV8kbLm/wBOTp+J4MsE8c8ZAUN2lJAsDoSt+Wu1avFOIYBMRHMMZAjBhnHWL2hzO+9cLxmNlmN5ZXkP87FvnoK9cN4c88giiW7G9hcDQcyTWzVNJ2jpe/qZeXZTSvUnx04O3Yvj3DXxEUy46AFW7fbAuLGx9RW274WfFQzw4iJ9e3ldTqFJU7+IA9q4/iehWMRWYollFzZuQFza41quBRvTNTnfTlP2iPZkJr+Op6D9C47hF8dE4HYc5m8Myan37P51pthZI8f1cTsqs2bQ6ZDq2m3iPauOcM6SYzDEdTipAB90nOvs1xV36P8A0pDrFbGwa5cvWxche+qH9D8Kw6VOT001uV6vZ+IprTxK1i6x8YBmMU8ZzhiqyR6Nvpt/48qmoMYQobMJIztIvL+oD5j2FRfA1gxM8mLikWRDbJY7MVAYkbg8tfOovgyTRvO6GyR58wOzEXsvr50jUq0ms2t2/cvmc6UIu/Fre8u6OCAQbg7GvVQPC+ILIM8Oh3kh/VPP8j5GpqCYOoZTcH/LHwNX6dVTV0V5RcXqZKUpUpqKUpQClKUApSlAfaUpQClKUApSlAKUpQClKUApSlAKUrHNKFUsTYAXPoKAw4ucrZVF3buj5sfIVXuLSylTHh1ZgT9pIupZuY02/wAFbPEcSwGUMqTTDTMbZE5D1/W/hWpw3guJw7Z1kjt94EmxHnp+dc6vOVSWSKduWuCxTSisz/s98LZGQri4ApUXzumUFQNSTbQiuedKun1s+H4cWjiJ7UtzdvHqr91T47+Ft6w/SP03bFscNA1oFNmIP8Vhv/YDt471RgKaQVlr6eTu4Hs9P+SqvUgdSSdSdSTqSfE+Jr7apbo7wf61KyklVRGdjzsBcAevyr3xTgRw0UbSyr1kgBES6sq+Lm+laXOr3sFLJfUtPQjomuQYnEJe4OSNgCMt+9Y7kgXHherJg+CQYed54owpcEEDYHMDdPw3vy8BVS+j7jUucYXvLYlSSTkRQSwUc73FvCugu1zYg+Prc+VUqrkm7nExkqsarUnv8jA5dlKspsQRqb7k7i/5VFcK6J4WKLqmhV2YAM7i5PZNyt+6NTtU5NFYC2tx+V7eP+aVhxUzLC7qt2VCQDzIGZgSNRcA1HFtaXKkZyStF7nJOlHAGwcwXUxsLoxtrrYrpzGnvUMRUnxjir4ubrJCQt+yO9kQnYeP61LwdDXZktKrRyxs0UibZwLhXB25/wCCr8XZK56NVO6gu9epA8I4tPhJBLh5Cjc7bMPBhswrr3RXpjDjcNLCE6vE5XJjGzs17sh56nbcelcWZSNCOZHxG4r7DKyMroxVlIKsDYgjYipVLghxWChXV9n1+53TFYE4LDo4P2xcXPgLElR5ePjUvw3H9YvXIpB/+1PHlnXxOnx23FVnodx9OLJHHObSw3LqNOtGgDjwHiPE1v4zFuuOtAt8gCZRsVGrDyGv5VF/gaa8uiS+bPOVKcszhPzLcuUbhgCDcHY+Ir1UbgZ1BGU3jk1Tybdl+ZHxqSrqQlmRSasKUpWxgUpSgFKUoD7SlKAUpSgFKUoBSlKAUpSgFKUoBUdj5Rms3cQZ5PQXyD3BP9tSBqr8YxC9UA75OvYsTbMRGLZRb0y+5qDEVMkbm9OOZ2NSHh6Y2RpDiBmP3ANVA2Gp1+FV36S+NHBwDARTMzyi7kkXSLbKCNs1iPQGrVhuHYKONp+tziNS7HNawUXJsLW2rhfGOJPisRLiH3ka9vBdlX4KAKpUoZI5mlmfKdzsYCiq1W78seGueDTArbw2BZ0aW32aMgkPgHaw/wA9K1auuAw6YWGfDzsAsyxSI5HZK5wGVvAgj41hvQ7tepkjpv8ATkl8bw+ZMRNiMOkeTq0VszZUyBBoLbnlfYAedU3j/FxiXDfV44rafZ6lraannW10lkwwCx4d5XO7u7NlJ52U2G/lUEBWqRphKGim9+OPqTPQ7Hrh8ZG791gUJ/DntZvgQK64VOYfG2x56/54VwphpXbOEYkPFhXJsXUH3iVj8jUFdaplPtWlZxmudDelQ5R6ab6atvrvqKhukHEVw+Ed23y2UeLMBYfv6Vp9HOKF5uJBicsb3W97BbMpGu38Mn41E/SfLZMNH4kt/pRQP9xqNQ8SRSoYd9/GnL80uc9C6VcejfG5XCYfD4bDrIDcOWyX0ttY3P71UrV82IPgfT/xVxo9DXoKpGzLbxngxiwQhZftjih1YuCxMg1Gm/hf+UGqji8O0bvG4syMVYeYNjVzwEuCZYZRNIsodSySlnuQd0J52J2PwqE6S4RnvjdkxEr9Wp3yLoGPrl2pF8FPD1GpZJfj9BFcL4jJhZ454ms6G48xzU+RGld0w3F4X4eMTALGfTxbrGJzg+JU5vauBEV0L6HeNBJ3wslsrgvGT911HbA8LqL/ANpqaOqcfj0IO1MOpQ71LWPxReuARSInUy9jrLtDfcOut7cht+dWjBzZ0DWseY8GBsw9wap+M6+ac4hVKomqs/ZAVdb66m/61ZsDMC9x3ZVEi+ugb5r7mmDnbwcLa/KPO1lfxEhSlK6BXFKUoBSlKA+0pSgFKUoBSlKAUpSgFKUoBSlKA1OJMRE1tz2R6sco+dVriww74nLNKVWMKoUA+Fzry3/KrJj9TCvjIP8ApVm+aiqrCuEaaSSeW5LsctmAGulzbX5Vz8Y7tR035LFDTX5ET9JmLw8HDcmHy3ncRll1OUDO9zvsAPjXHxXQ/plxaNLg447ZFjdhYWHacKP9lc+RSdgT6Anlfl5Vidk7L4Hpuy4ZaCb5uza4VhBNNHExKhza45XBt+dX+HEOMTDBJhTLPhwVFiAjBQGWQlu6LMDzsfOqT0cw6y4mNC7ISewy2uHGq777bVf43xbY5oWCRyFSHnUXugUWaMHQMb21uAQd6hlua45+K3oKJ0gxMkuJlaUrmvaym6rb7q+nzvWgBWbHKglkCElQxAJNybG1yedzc1iFbI61JJQSXQlujPCRiZrPfq11e3O97L462NdUhaMGML2cmijU8rH8gB6VQeguJRTIhIDEqRfS9gb+361eEINrLb3PKqVaTzHC7SlJ1bPZbGpwvhohkxjFwwxDXygHRe1dTfe+asXSTh0WJhCEMHQHq287aA+wFbyQEG9xpfbc+tY8VMqqc1lA5k2+dRKcm7lSM5uamnqcidCpIIsQbEeY3rwa2uIyh5pGGxZiPS9a1dFPQ9UruN2WzofipDBPF1AniAuVBHWIe9mQHvDnve4NqcUhOJwRcApBhQcl+9JIwBHooBA8bk146BROXnaGTLKiE5W1R0I1VhvvzB0uKkHjknwMzSAQ4dDmKr3pHtmtc91QxtoLkitXucas1Gu2uq+Po9Jz6tjheOOHxEU67xurfAHtD4i4+NYEQnZSbb2BNvavDjkalTsdKaUk4s/QnHpJsQFjgjYoQCzbA3FwATuKy8HusUYYgtFJkaxvo4ta/qV9qjOj/EZ5eF4QQozO0Sqz6ALlGQ2ue92azcHw7wx4hHADBVe1wSCpJ1ttsKS0r5tXdb8LlI8dKNouPR/8LfSvgNfa6ZTFKUoBSlKA+0pSgFKUoBSlKAUpSgFKUoBSlKA08V/Fh9W/2H96qnCUwiEyTSqz3JC2YquvPTtGrXjP4kJ/nI942/YVVOFw4aJ2eeRSwY5U1bLYnU2G/wAq52KX8kXZb88bFml5Xv7PaUD6X5g/EVI7vUR20I0LycjUV0e42IYxGI3Z85y5SALOUDZuYayEA+DVMfTDZsbDKAcskC2uLd2R+R9RVe6NyydYYo8T1BksL5b5mvYKDa4JuaxV3Z6XDpSwkfUY4Y1jxeWbsgSENkJGQ3uCpHIG3wroHFcJiVnhDTZ4pMoLgBXKEHMjFdNdBmW1wTtVF6TYdknu7q7Oqs1gV1tbtq2oJAB+NXHg8UWKwf2OJeN03iLkgDYgBiWUeBU/CoZdTTFaxhU422uV7pngss7SogWEsUitYA9WLHKByvcX8qhsJhzI4RSLna9/0Bq/tw+LELh8KzXMMLs2U7NZlj+TH4CqC8EsJRmBXMCyn8S3Kkjy39/Osp6WLeDr5oZOV+I2/wDg7/iTYE9+wBUNr2dNCDW4MPMFP/uCCt9RJJawUMQRl07Ov5VFfXH0OaxFrEbiy5fkB62rfwaYqfOUzFTfOSQqdpcpJLEAG1Grliana8mjximnjClsQ2t7WeTla9728RXpsHNIus2Zb27TSEX18V5WPpWeXg+IcKA8MhW9lSaNmF7X0vrtUfLiZo/s2LKVI0IswIv5X5n1rFhGSmvA1cynhRyMcy3UXJuxBXKGt3NDYg786izW1LjnYsSblgQSfAqFPuAPapbozwDr5QJlYI8Tsh2uRcAj0IJ9qzsZlU7qLlUZMcEwDxYOXTJOhV4mFiTHJv8A1Ie0pB5j0NeuP4Z04cHxMujm8cCdkZr9nOd3I3IvYedb31cYoYTq5shVGR2XdbSWYWOm6G19OdVvp5iIOsEUTtKyaGRnZrfyrrlGu9hWq1Zx6WarWV973emxqdDWySSSETEKo/hKWHj9plsSNBoN6iuOYszTyPnz3tZsuS4Cj7vK21TvCVaHDLI0cpRX60Nh3X8IGWYXuB2fhc1V55MzMx0zMWNv5mJ096kW5fprNVlL2HZvo8xUw4PAIYy7ZpRe4so657bnU1I8HwkqPiOuFi8TE3IJOu+h860+gv1iLhGGEMWYsHbMSthnlZtATqda2+EQSqcU8wbMYjq25vf9qzU1qw3+mx5mt56lrbv17lvgPZX0Hyr3XlBYAV6rprY57FKUrIFKUoD7SlKAUpSgFKUoBSlKAUpSgFKUoDS4noob8LKfhmsfyJqtHBQpipXndQoa6odSxOt7DkL1bcREHVlP3gR7iqlxjBCWSGR2CqVtKSbWKGxHqdR8KoY2O0kr2fP56ieg9bXKn9MQWaLC4pAcqu8VyLXzAMCPK6EfGubYado3V0NmU3B8xXculEcfEMFPhoEJyJmQ2sA6aoo5m9iPeuEKa1k82t7no+yp5qLpvj5Msjphp42SBJHnYk537UjMAp1A0CEFhfkQKw9GeLph5LSwiRCdeypZeWl9/StThvGZIFZEtlYnNpZiCtrZhqBz0516lwc8qPiSotc5rWB0UFmy+FiCT53qKxc7tWcJ+V7anSCIULTYTDSWZWFgjALmGpItcC+pA89K1p8AksOAWZdbspHmVNwPLS49BVZ6MdLp4CI2kXqzpd1LED1BB96uE0GGlQYg4sXUggB48oPiOYPxqNqxy6tKdCdn7Grvgq0/BYMOMWs5J6lwVI0Zoyt197EHzqV4Zw2MqsmLAa1isI1iiF7gBRoz2sbsNbECtHpJncmd43VWkgGZhlDqshJYX5XYbit/jgNhva4v/TcXtc3A28AayZnUnNK73+yN2ZsDMojOHh0FtFUW0Q6FRe1+sOn4bc6g+IcPVZo4pmZ4na0TsftI2uT1LHdlIta+oNR+HE+Z+sZSCw6nJa47XLKLgWtvrepbpAT9WTx6yHJtv1otaxIt5C1ZtYxFOlJKMjDg+j8LLjpmtkjLJGBsLCzP8CNPjVinlaOTC9XEzhYCuVBc9rRbW2AAub+XOo7AKuVsNNmhV3LAuABICxYZS3ZYa7emlbvE+KR8PU9ViVka2mchydNuwR71qYqSnUlbfouNrGrxHE4PBwEthS0zaXZPLQFmFlHkKoMAM0xdozkDBpBGuipcA2A8tPE1mx3EcRjZVDHMzGyougv5D9TUpgycLEzKb2ZevUgLLFJYqDHfQg30Ou9/TdKx0IU+4hrrNmpx+WAIOo7LuxzZCVzIAQQ6DRBmtZdTYEmq63lvy9eVbXEcWZpZJSLFze3hpYepsBUv0B4QcXxCFLXVD1j+GVDcX9Wyj41JCOtia6o0nJ8K52GHD4rD4SCCCIWjiRS1wWuEF7A7a+teeBwOI5esBzySopzbkA3O/kTX3jkmOAOlk8YtTbz51v8ABsNlWBDuqmRv630W/wAC/tReOvzp129h5KUvBfTVk5SlK6ZVFKUoBSlKA+0pSgFKUoBSlKAUpSgFKUoDBjHdY2KKGYAkA6XPhUVw7pNBKLMerbmraa89dqmzVY4/0dzsZYR2j3l/F5jzqGrnWsfcbwUXpIsiSqwuGB9CDUJxnBZ1lj5t9pH/AFjRx8dP9RquYRNbEWPPkanMHCptdb+tU6mJU45ZImVPK7pmrw/ikWFhWNBnlbVrbBjyJ8q5x0q6HSHGSNhgrRP273sFZu+ovyvcjyIrrOJhVe6oHoAKgsfIBbxO1VlVko5eOC3hq0qU3OO73Oaf8nSgdqVB5AE1tQyvmTBzlVBC3lBILoilRGAdAxHYJ8PhV1xHDZSuYJp6iud9M7idEI2S/wDqY/sKzGTk7M6eHryxE8sv6HFuHIzytAmQRjNIp0CC4CjXUOdez5aHWtDhGOWCUSGIORtc2sfHY60h4oeokgdcyscwNyGEgFlJP3h5Gp2VcPJFh4IsjZssYc2DB21dmGjKb30NwdNqk9BfzOEck1dfQ+8V6aPi1WKaJRDqGC3LkEWuCeY32qZ4XxRFRUxR7GmXEDWORSTqxAtG1rKc21zaqniOFxGRUjmIJZl+2UrcqbAggWIJ0r1HDisIZDHIBksZMjqy6tlAYHc30ta9YsiCeHoyilT0LxJiuHxgP9YiYkXstmLHKi90antCQW8HNV3jvEjmWV0KZLmCJ++zagTSjdQFOgOta2Ix3EVC3UR5iFukcSNmbuhioupPnaojiHDp0DySg3D5GzG7FiuYHzFudEiPD4SKd5yv7blg4h05OIh6qbCoRa3ZYgeoBBsfjVXwGBeZikKZiASQLCwHjUpLwhI0RisjnIkrsMoj6ot2lB3LW09TW5xLjEcYvFJG7CQNDkTLkhIs0cmgvcaW+NZ9RZg4U1lorc2MPhIsGAzgOGynrGBBjlAzBCBqqnkfG971pYjByY5hLcRpqEBF2y3+8RuAbgeVqg+IcQeZszsdNFHgoJIHna51OtXXophnlw8RUDYjf8LED5VrK8VcgxGejDvL+JkDJ0OxH3GR/iVP51ffo64GcLh5HMqR4mU6hgDlRScq/HVviKzNhHh74t6EGpbA62pGq0cvEYupVp5G9DDHhcTLiFSdyU7xIbsFV9NNdKtPDxcGQ6ZzceS7IPbX41onDIVuUX2FReKjA5Uo1VSber9bKEo5yzYjGxxjtyKPUio3D8eE0yxQoWGpdzcAL5eJvaq1HgXmfLGvqeQHiauHB+Fph0yrqT3m8T+1XaVWpVeisiOcIwXVm/SlKtkIpSlAfaUpQClKUApSlAKUpQClKUAr4aGqrxn6/qNCnjFvbz5+1R1J5Fe1zaMczM3HZYWayayjcjb0bx+de8BVfwgsbHQ+B0qf4fXJqTzSu1YtZcqsbGOqs8bbKA9r5SKsmPkA3I96rfHVPUs2U201sbb1HZm1M2MPxuJochJVvPb3rl3Tz/5IPLINeXebnU1jeI9SVBXNmvoDr2d9LbedxWbAcahlW+Vrbns5rAjnlvapI3Wpfw2ajLvEro58DXoG229X2P6jPME6qIgoGz3CbkgADQk6fmK3j0Kwj6gMv9LH9b1vn6o6f7hBeeLRQF4pL1kcjOXaMgrnuRprXuLijKs4sCZmVmbwKuX0HmTVyToFhpGZI8Wcy95boxX1G4rJ/wClhPdxfun7GmaI/W4bn5FVxnSDPnKwhWkeN5GzFrtGbrlB7ovWPinSGWdGjcLlL5xuSu/ZB8NTvVvP0UON8Wv+g/vQfRgo72KPwUfqaxmiaLFYNar6nPmxUhTqzI2QbLc5fasNdLT6PMOvekkb4gfIV6botgYhdkH97n9TTvI8G/7jRXlT9xzAtXTegcojw0ZfTvbjXvmtLHcRwuHAMKRNY9oINcl7FlIFjYkbkV8x/HlQkCJyQrNrlXRBc8yQbciKxJuS0RWxNWVeKio2LLxri/XNlRbDQXO5qYwAtYVT8Excxm2rZTYG+/Lzq44fskBgV/qBHzqJJnKqJR0Jr7lQ+N/K+tt7c7edS6tdNDURjDQhiTvCZYSlorADccwfP96365/GJc94Q2bxX9eVvWrbwj60RefJtoB3r+dtK6lCvmVmiGpTy63JOlKVaIRSlKA+0pSgFKUoBSlKAUpSgFKUoBXy1faUBilw6N3kU+oBrCOHRf8A5L7Vt0rVxT3Rm7MMeGRdkUegFVz6QJrYdV/E49gCf2q01FdIOCriowpOVlN1bwNuflWlWF4NRNqckpJs5TiMCkwAcHS9iCQRcWOorCOjaFSBK4JVFF7EBUNwLC1wTv61ZsV0cxEO6Zh+JNfy3FasYsbHQ+BrlNSjudONeSXhZCf8qGzKklh1UaqWLE50kzG/4VI002ua+R8GxKS6IQDLAB1TuF6vI4e5vm3y3NqtMNe8fiHjhd40LMALKATfUDYEciaZmSLEzbs9SmYCOUYmGQXiJxKAobu6tIsvWl2ZQSrFRYXI5+FXHjPS18JiJI2jTIsYkUs2S4sbqtz2muLWA5itGDpY6tabDdXYXOZjcWSJtlVucoHw1tUtgekOHxTJBJh3vJdCrKpAJjzMjEHQ5d6y9XqhUu3eUdDVx3TthGzLhlIVEZiZRZWcrljNl/iENfL4CofH9LsU+cxBFVHVWOQ3GacRW7V9dyL8tanMXjOE5srYdC6gIc0Y0CpmALPYaKNya1cZ06hBssD31JDZVIsAdhcnQqRbe48aacI1hFf60/eYemskwCpB9Y6wC4MYbK5vaxZdA2n3tO1sahV6PYgzFjZSJZCJOybK2GCoVBJuA5Onqan4eOTSTJH1QUF3DE5iMqMykqdLsSo0toDUnLWuZxVjZVZU1lsimN0YcizSoB1bJ2EI1aRXZtTqSRr61nPAYRn0Y5w4N2Ogfv5fC9T8tYFgeQ2RCx/lBNa5pPYOvPlmhH2Mtvu2t/bt8q64hDKDuCAfcVR+HdEZJCDMQi8wNWPl4CrzEgVQoFgAAB5AWFX8HTlG7ktzn4mcZNWML4GI7xr7Cvi8PiGvVL7CtmlXMkehWuz4qgbC3pX2lK2MClKUApSlAfaUpQClKUApSlAKUpQClKUApSlAKUpQClKUB8tWKbCo4s6K3qAaUrDSYNGTgOHO0dv6SR/2rAejyDuyOPXKf0pSo3RpvdG6nLqDwRrW6xSPBk/714i4GEZWWKHMpBBC5SCFKgiw/CSPQ0pWn6Wn0M97LqYB0Wiux+rw9osxBLMLuCHIBFhfMb23vWePgeUAKIlA2spNvTavtKfpaZnvp9T3/wAEJ3l9lt8ya9L0ei+8zt8bfIUpWyw9NcGveS6mxDweBdol9T2vnW6qAaAW9KUqRRS2Rq23ueqUpWxgUpSgFKUoBSlKAUpSgPtKUoBSlKA//9k=" alt="SSC Logo" />
+    <div class="header-text">
+      <span class="ssc-title">STAFF SELECTION COMMISSION</span>
+      <span class="ssc-sub">(Government of India)</span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <div class="login-box">
+
+      <div class="login-box-header">
+        <h2>CANDIDATE LOGIN</h2>
+      </div>
+
+      <div class="login-box-body">
+
+        <div class="error-msg" id="incorrectCredsMsg">* Incorrect Credentials.</div>
+
+        <!-- Roll Number -->
+        <div class="field-group">
+          <label>Roll number ( As per Admission Certificate)<span class="req">*</span></label>
+          <input type="text" id="rollInput" placeholder="Enter Roll number" autocomplete="off" />
+          <div class="field-err-text" id="rollError">Please enter the Roll number.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="field-group">
+          <label>Password (As per Admission Certificate)<span class="req">*</span></label>
+          <input type="password" id="passInput" placeholder="Enter Password" autocomplete="off" />
+          <div class="field-err-text" id="passError">Please enter the Password.</div>
+        </div>
+
+        <!-- CAPTCHA -->
+        <div class="captcha-section">
+          <div class="captcha-row">
+            <canvas id="captchaCanvas" width="195" height="52"></canvas>
+            <button class="captcha-refresh" id="refreshCaptcha" title="Refresh">&#x21BB;</button>
+          </div>
+          <div class="captcha-input-wrap">
+            <input type="text" id="captchaInput" placeholder="Type numbers as shown in image" maxlength="8" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="help-icon">&#x2753;</div>
+
+        <div class="login-btn-wrap">
+          <button class="login-btn" id="loginBtn">Login</button>
+        </div>
+
+      </div>
+
+      <div class="login-box-footer">Version 15.03.01</div>
+    </div>
+  </div>
+
+  <script>
+    // ── CAPTCHA ──────────────────────────────────────
+    let captchaCode = '';
+
+    function generateCaptcha() {
+      captchaCode = Math.floor(100000 + Math.random() * 900000).toString();
+      drawCaptcha(captchaCode);
+    }
+
+    function drawCaptcha(code) {
+      const canvas = document.getElementById('captchaCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width, h = canvas.height;
+
+      // Gradient: yellow → green → teal
+      const grad = ctx.createLinearGradient(0, 0, w, 0);
+      grad.addColorStop(0,    '#f5e800');
+      grad.addColorStop(0.45, '#a0e840');
+      grad.addColorStop(1,    '#28c8c0');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Noise lines
+      for (let i = 0; i < 5; i++) {
+        ctx.strokeStyle = 'rgba(0,0,0,0.12)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * w, Math.random() * h);
+        ctx.lineTo(Math.random() * w, Math.random() * h);
+        ctx.stroke();
+      }
+
+      // Horizontal scratch
+      ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.moveTo(6, h * 0.63);
+      ctx.lineTo(w - 6, h * 0.63 + (Math.random() * 3 - 1));
+      ctx.stroke();
+
+      // Digits
+      ctx.font = 'bold 30px Arial';
+      ctx.fillStyle = '#111';
+      ctx.textBaseline = 'middle';
+      let x = 8;
+      for (let i = 0; i < code.length; i++) {
+        ctx.save();
+        ctx.translate(x + 14, h / 2 + (Math.random() - 0.5) * 5);
+        ctx.rotate((Math.random() - 0.5) * 0.22);
+        ctx.fillText(code[i], -7, 0);
+        ctx.restore();
+        x += 29;
+      }
+    }
+
+    document.getElementById('refreshCaptcha').addEventListener('click', function () {
+      generateCaptcha();
+      document.getElementById('captchaInput').value = '';
+    });
+
+    generateCaptcha();
+
+    // ── LOGIN ─────────────────────────────────────────
+    const CORRECT_ROLL = '3206022224';
+    const CORRECT_PASS = '06081997';
+    const PDF_URL = 'https://raw.githubusercontent.com/letmegetthatnow07/key-/main/3206022224.pdf';
+
+    function clearErrors() {
+      document.getElementById('incorrectCredsMsg').style.display = 'none';
+      ['rollInput','passInput'].forEach(id => {
+        document.getElementById(id).classList.remove('err');
+      });
+      document.getElementById('rollError').style.display = 'none';
+      document.getElementById('passError').style.display = 'none';
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', function () {
+      clearErrors();
+      const roll = document.getElementById('rollInput').value.trim();
+      const pass = document.getElementById('passInput').value.trim();
+      const cap  = document.getElementById('captchaInput').value.trim();
+
+      const noRoll = roll === '';
+      const noPass = pass === '';
+
+      if (noRoll || noPass) {
+        document.getElementById('incorrectCredsMsg').style.display = 'block';
+        if (noRoll) {
+          document.getElementById('rollInput').classList.add('err');
+          document.getElementById('rollError').style.display = 'block';
+        }
+        if (noPass) {
+          document.getElementById('passInput').classList.add('err');
+          document.getElementById('passError').style.display = 'block';
+        }
+        generateCaptcha();
+        document.getElementById('captchaInput').value = '';
+        return;
+      }
+
+      if (cap !== captchaCode) {
+        document.getElementById('incorrectCredsMsg').style.display = 'block';
+        generateCaptcha();
+        document.getElementById('captchaInput').value = '';
+        return;
+      }
+
+      if (roll === CORRECT_ROLL && pass === CORRECT_PASS) {
+        const a = document.createElement('a');
+        a.href = PDF_URL;
+        a.download = '3206022224.pdf';
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        document.getElementById('incorrectCredsMsg').style.display = 'block';
+        document.getElementById('rollInput').classList.add('err');
+        document.getElementById('passInput').classList.add('err');
+        generateCaptcha();
+        document.getElementById('captchaInput').value = '';
+      }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('loginBtn').click();
+    });
+  </script>
+
+</body>
+</html>
